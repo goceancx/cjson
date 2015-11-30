@@ -3,7 +3,16 @@
 #include<stdlib.h>
 #include"globe.h"
 #include"stack.h"
+#include"json.h"
 using namespace std;
+
+
+void parseJson(char* json , JSON* node){
+	/*
+		对JSON进行解析
+	*/
+
+}
 
 int main(){
 	char c;
@@ -34,29 +43,30 @@ int main(){
 	*/
 	Stack s;
 	pjson = jsonstr;
-	for(;*pjson!='\0';pjson++){
-		char c=*pjson;
-		
-		switch c:
-		case ':':
-			break;
-		case '{':
-			
-			break;
-		case '}':
-			break;
-		case '[':
-			break;
-		case ']':
-			break;
-		case ',':
-			break;
-		case '\"':
-			break;
-	}
-	
 
-	
+	JSON* root;
+		
+	parseJson(jsonstr,root);
+	// for(;*pjson!='\0';pjson++){
+	// 	char c=*pjson;
+	// 	switch( c){
+	// 	case ':':
+	// 		break;
+	// 	case '{':
+	// 		break;
+	// 	case '}':
+	// 		break;
+	// 	case '[':
+	// 		break;
+	// 	case ']':
+	// 		break;
+	// 	case ',':
+	// 		break;
+	// 	case '\"':
+	// 		break;
+	// 	}
+	// }
+		
 	
 	return 0;
 }
