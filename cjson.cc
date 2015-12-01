@@ -73,13 +73,12 @@ void* parseJson(char* json,char** addr){
 	
 	bool firstReadBrace=true;
 	bool firstReadBracket=true;
-		bool bParseKey = false;
+	bool bParseKey = false;
 	for(char* pjson =json ; *pjson!='\0'; pjson++){
 		char c= *pjson;
 		int idx = node->index;
 		switch(c){
-			case '{':
-			{
+			case '{':{
 				if(!firstReadBrace){
 					node->types[idx] = T_JSON;
 					node->vals[idx]=parseJson(pjson,&pjson);
@@ -88,16 +87,14 @@ void* parseJson(char* json,char** addr){
 					bParseKey = false;
 				}
 				firstReadBrace=false;
-				break;
 			}
-			case '}':
-			{
+				break;
+			case '}':{
 				*addr=pjson;
 				return (void*)node;
-				break;
 			}
-			case '[':
-			{
+				break;
+			case '[':{
 				if(!firstReadBracket){
 					node->types[idx]=T_JSON_ARRAY;
 					node->vals[idx]=parseJsonArray(pjson);
@@ -106,9 +103,8 @@ void* parseJson(char* json,char** addr){
 				}
 				firstReadBracket=false;
 			}
-			break;
-			case '\"':
-			{	
+				break;
+			case '\"':{	
 				if(!bParseKey){
 					// 对key进行parse
 					node->keys[idx]=parseKey(pjson,&pjson);
@@ -119,19 +115,17 @@ void* parseJson(char* json,char** addr){
 					node->index++;
 					bParseKey = false;
 				}
-				break;
 			}
-			case ':':
-			{
+				break;
+			case ':':{
 			//	printf("addr:%d :\n",pjson  );
 				bParseKey = true;
-				break;
 			}
-			case ',':
-			{
+				break;
+			case ',':{
 				bParseKey = false;
-				break;
 			}
+				break;
 			case '0':
 			case '1':
 			case '2':
@@ -141,24 +135,22 @@ void* parseJson(char* json,char** addr){
 			case '6':
 			case '7':
 			case '8':
-			case '9':
-			{
+			case '9':{
 			//	echo("readInt");
 				node->types[idx]= T_INT;
 				node->vals[idx] = parseInt(pjson,&pjson);
 				node->index++;
 				bParseKey = false;
-				break;
 			}
-			default:
-			{
+				break;
+			default:{
 				//其他类型的val 存储成字符串
 				node->types[idx]= T_EXCEPTION;
 				node->vals[idx] = parseNoString(pjson);
 				node->index++;
 				bParseKey= false;
-				break;
 			}
+				break;
 		}
 	
 	}
@@ -215,7 +207,7 @@ int main(){
 	JSON* root;
 	char ** addr= &pjson;	
 	root=(JSON*) parseJson(jsonstr,addr);
-	root->print(0);
+	root->print(1);
 		
 	
 	return 0;

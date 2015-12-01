@@ -26,12 +26,12 @@ class JSON {
 				echo_t(dep);
 				echo_key(keys[i]);
 				putchar(':');
-
+				putchar(' ');
 				switch(types[i]){
 					case T_JSON:{
 						JSON* json = (JSON*)vals[i];
-						dep++;
-						json->print(dep);
+						
+						json->print(dep+1);
 					}
 						break;
 					case T_JSON_ARRAY:{
@@ -58,17 +58,14 @@ class JSON {
 					putchar('\n');
 				}
 			}
-				
+				echo_t(dep-1);
 				putchar('}');
 		}
 		void echo_t(int dep){
-			for(int i=0;i<dep;i++)putchar('\t');
-
+			for(int i=0;i<dep;i++){putchar(' ');putchar(' ');}
 		}
 		void echo(char * s){ 
-			
 			printf("%s", s);
-			
 		}
 		void echo_key(char *key){
 			printf("\"%s\"",key );
