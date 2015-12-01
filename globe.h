@@ -1,4 +1,10 @@
 #define JSON_STR_LENGTH  1000
+#define T_JSON 1
+#define T_JSON_ARRAY 2
+#define T_INT 3
+#define T_STR 4
+#define T_EXCEPTION 5
+
 char jsonstr[JSON_STR_LENGTH];
 void echo(char* str);
 const char COLON=':';
@@ -22,6 +28,10 @@ bool is_white(char c){
 char* skip_white(char *s ){
 	char*p = s;
 	while(p!=NULL){
+		if(*p=='\"'){
+			p--;
+			return p;
+		}
 		char c= *p;
 		if(is_white(c)){
 			p++;

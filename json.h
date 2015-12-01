@@ -8,13 +8,16 @@ typedef char** StringArray;
 typedef void* Object;
 typedef void** ObjectArray;
 
+
 class JSON {
 	public :
+		int index;
 //		StringArray key;
-		int type;
+		int types[20];
 //		Object val;
-		char** keys;
-		char** valus;		
+		char* keys[20];
+		void* vals[20];		
+
 };
 
 
