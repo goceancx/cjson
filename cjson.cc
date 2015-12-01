@@ -214,26 +214,8 @@ int main(){
 
 	JSON* root;
 	char ** addr= &pjson;	
-	parseJson(jsonstr,addr);
-	// for(;*pjson!='\0';pjson++){
-	// 	char c=*pjson;
-	// 	switch( c){
-	// 	case ':':
-	// 		break;
-	// 	case '{':
-	// 		break;
-	// 	case '}':
-	// 		break;
-	// 	case '[':
-	// 		break;
-	// 	case ']':
-	// 		break;
-	// 	case ',':
-	// 		break;
-	// 	case '\"':
-	// 		break;
-	// 	}
-	// }
+	root=(JSON*) parseJson(jsonstr,addr);
+	root->print(0);
 		
 	
 	return 0;
