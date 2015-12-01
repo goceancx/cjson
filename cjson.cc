@@ -191,9 +191,12 @@ int main(){
 		if(metQts%2==0 && is_white(c)){
 			
 			pjson=skip_white(pjson);
-
+			pjson--;
+			continue;	
 		}
-		jsonstr[index++]=*pjson;
+		
+			jsonstr[index++]=*pjson;
+
 	//	putchar(*pjson);
 	}
 	jsonstr[index]='\0';

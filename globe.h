@@ -28,16 +28,14 @@ bool is_white(char c){
 char* skip_white(char *s ){
 	char*p = s;
 	while(p!=NULL){
-		if(*p=='\"'){
-			p--;
-			return p;
-		}
+
 		char c= *p;
 		if(is_white(c)){
 			p++;
 		}else{
 			break;
 		}
+
 	}
 	return p;
 }
