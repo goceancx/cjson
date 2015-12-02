@@ -13,12 +13,10 @@ class JSON {
 	public :
 		int index;
 //		StringArray key;
-		int types[10];
+		int types[LESS];
 //		Object val;
 		char* keys[LESS];
 		void* vals[LESS];		
-
-
 
 		void printJsonArray(JSON **pJsonAry){
 
@@ -28,9 +26,10 @@ class JSON {
 			bool first=true;
 			putchar('{');
 			putchar('\n');
-			echo_t(dep);
+			
 			for(int i=0;i<index;i++){
 				if(keys[i]!=NULL){
+					echo_t(dep);
 							printf("\"%s\":", keys[i]);
 				}
 				switch(types[i]){
@@ -92,7 +91,6 @@ class JSON {
 		void echo_key(char *key){
 			if(key!=NULL){
 				if(*key!=NULL && *key!='\0'){
-				
 				printf("\"%s\": ",key );
 
 			}
