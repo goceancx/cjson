@@ -4,6 +4,8 @@
 #define T_INT 3
 #define T_STR 4
 #define T_EXCEPTION 5
+#define LESS 150
+#define MORE 300
 
 char jsonstr[JSON_STR_LENGTH];
 void echo(char* str);

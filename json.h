@@ -13,41 +13,63 @@ class JSON {
 	public :
 		int index;
 //		StringArray key;
-		int types[20];
+		int types[10];
 //		Object val;
-		char* keys[20];
-		void* vals[20];		
+		char* keys[LESS];
+		void* vals[LESS];		
 
+
+
+		void printJsonArray(JSON **pJsonAry){
+
+		}
 		void print(int dep){
+
+			bool first=true;
 			putchar('{');
 			putchar('\n');
-			bool first=true;
+			echo_t(dep);
 			for(int i=0;i<index;i++){
-				echo_t(dep);
-				echo_key(keys[i]);
-				putchar(':');
-				putchar(' ');
+				if(keys[i]!=NULL){
+							printf("\"%s\":", keys[i]);
+				}
 				switch(types[i]){
 					case T_JSON:{
-						JSON* json = (JSON*)vals[i];
-						
+						JSON* json = (JSON*)vals[i];		
 						json->print(dep+1);
 					}
 						break;
 					case T_JSON_ARRAY:{
+						JSON** pAry = (JSON **)vals[i];
+						
+						//printJsonArray(pAry);
+						bool first=true;
+						putchar('[');
+						while(*pAry!=NULL){
+							if(first){
+								(*(pAry++))->print(dep+1);
+								first=false;
+							}else{
+								putchar(',');
+								(*(pAry++))->print(dep+1);
+							}
 
+						}
+						putchar(']');
 					}
 						break;
 					case T_INT:{
+						
 						echo((char*)vals[i]);
 					}
 						break;
 					case T_STR:{
+						
 						echo((char*)vals[i]);
 					}
 						break;
 					case T_EXCEPTION:{
-
+						printf("T_EXCEPTION: \"%s\":", keys[i]);
 					}
 						break;
 				}
@@ -68,7 +90,14 @@ class JSON {
 			printf("%s", s);
 		}
 		void echo_key(char *key){
-			printf("\"%s\"",key );
+			if(key!=NULL){
+				if(*key!=NULL && *key!='\0'){
+				
+				printf("\"%s\": ",key );
+
+			}
+			}
+			
 		}
 
 };

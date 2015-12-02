@@ -6,21 +6,22 @@
 #include"json.h"
 using namespace std;
 
+void* parseJson(char* json,char** addr);
 
 char * parseKey(char* s,char** addr){
-	char* key = new char[100];
+	char* key = new char[MORE];
 	char* p=key;
 	s++;
 	for(; *(s-1)!='\\' && *s!='\"' ;*p++=*s++);
 	*(++p)='\0';
 	
-	*addr = s;
+	*addr = ++s;
 	printf("key:%s\t",key);
 
 	return key;
 }
 void* parseInt(char* val,char** addr){
-	char*pint = new char[100];
+	char*pint = new char[MORE];
 	char * p = pint;
 	while( (*val-'0') >= 0 && (*val-'0')<=9){
 		*p++=*val++;
@@ -37,22 +38,37 @@ void* parseNoString(char* val){
 }
 
 
-void* parseJsonArray(char* jsonarray){
-	JSON* pjson[10];
-	for(int i=0;i<10;i++)
-	{
-	  JSON* pj= new JSON();
-	  	pjson[i]=pj;
+void* parseJsonArray(char* jsonarray,char** addr){
+	JSON** jsonArray=new JSON*[LESS];
+	JSON** tmpJsonArray=jsonArray;
+	if(*jsonarray=='[')jsonarray++;
+	
+	int index=0;
+	char* pjarray = jsonarray;
+	for(char* pjarray = jsonarray;*pjarray!='\0';pjarray++){
+		char c = *pjarray;
+		switch(c){
+		  case '{':{
+		  	
+		  	tmpJsonArray[index++]=(JSON*)parseJson(pjarray,&pjarray);
+		  	*addr=pjarray;
+		  }
+		  	break;
+		  case ']':{
+			*addr=pjarray;
+			tmpJsonArray[index]=NULL;
+			return (void*)(jsonArray);
+		  }
+		  	break;
+		}
 	}
-	//JSON** ppjson = ;
-	JSON** ppjson ;
-	ppjson =  pjson;
-	return (void*)ppjson;
+	
+	return (void*)jsonArray;
 }
 
 void * parseString(char* s,char** addr){
 	
-	char* pval= new char[100];
+	char* pval= new char[MORE];
 	char* p = pval;
 	*p++='\"';
 	s++;
@@ -68,41 +84,45 @@ void* parseJson(char* json,char** addr){
 	/*
 		对JSON进行解析
 	*/
+	if(*json=='{')json++;
+
 	JSON* node =new JSON();
 	node->index=0;
-	
-	bool firstReadBrace=true;
-	bool firstReadBracket=true;
+
 	bool bParseKey = false;
 	for(char* pjson =json ; *pjson!='\0'; pjson++){
 		char c= *pjson;
 		int idx = node->index;
 		switch(c){
 			case '{':{
-				if(!firstReadBrace){
-					node->types[idx] = T_JSON;
-					node->vals[idx]=parseJson(pjson,&pjson);
-					
-					node->index++;
-					bParseKey = false;
+				node->types[idx] = T_JSON;
+				node->vals[idx]=parseJson(pjson,&pjson);
+				if(!bParseKey){
+					node->keys[idx]=NULL;
 				}
-				firstReadBrace=false;
+				node->index++;
+				bParseKey = false;
 			}
 				break;
 			case '}':{
+				printf("---节点返回----\n");
 				*addr=pjson;
 				return (void*)node;
 			}
 				break;
 			case '[':{
-				if(!firstReadBracket){
-					node->types[idx]=T_JSON_ARRAY;
-					node->vals[idx]=parseJsonArray(pjson);
-					node->index++;
-					bParseKey= false;
+				node->types[idx]=T_JSON_ARRAY;
+				node->vals[idx]=parseJsonArray(pjson,&pjson);
+				if(!bParseKey){
+					node->keys[idx]=NULL;
 				}
-				firstReadBracket=false;
+				node->index++;
+				bParseKey= false;
 			}
+				break;
+			case ']':{
+
+			}	
 				break;
 			case '\"':{	
 				if(!bParseKey){
@@ -179,16 +199,12 @@ int main(){
 		if( c=='\"' && *(pjson-1) !='\\' ){
 			metQts++;
 		}
-		
-		if(metQts%2==0 && is_white(c)){
-			
+		if(metQts%2==0 && is_white(c)){	
 			pjson=skip_white(pjson);
 			pjson--;
 			continue;	
 		}
-		
-			jsonstr[index++]=*pjson;
-
+		jsonstr[index++]=*pjson;
 	//	putchar(*pjson);
 	}
 	jsonstr[index]='\0';
@@ -197,16 +213,11 @@ int main(){
 
 	echo(jsonstr);
 	// trim Json  完毕
-	/*
-	对JSON串进行解析 输入key val对
-	利用栈 先逐个字符读入,然后匹配
-	*/
-	Stack s;
-	pjson = jsonstr;
+	
 
 	JSON* root;
-	char ** addr= &pjson;	
-	root=(JSON*) parseJson(jsonstr,addr);
+	char * pjsonstr= jsonstr;
+	root=(JSON*) parseJson(pjsonstr,&pjsonstr);
 	root->print(1);
 		
 	
