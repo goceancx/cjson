@@ -34,7 +34,39 @@
     {
       "id": "v200014",
       "miojiTag": "推荐",
-      "rec": "Hello PHP"
+      "rec": [
+        {
+          "id": "v200014",
+          "miojiTag": "推荐",
+          "rec": "Hello PHP"
+        },
+        {
+          "id": "v200014",
+          "miojiTag": "推荐",
+          "rec": "Hello PHP"
+        },
+        {
+          "id": "v200014",
+          "miojiTag": [
+            {
+              "id": "v200014",
+              "miojiTag": "推荐",
+              "rec": "Hello PHP"
+            },
+            {
+              "id": "v200014",
+              "miojiTag": "推荐",
+              "rec": "Hello PHP"
+            },
+            {
+              "id": "v200014",
+              "miojiTag": "推荐",
+              "rec": "Hello PHP"
+            }
+          ],
+          "rec": "Hello PHP"
+        }
+      ]
     }
   ],
   "img": "http://mioji.attr.kssws.ks-cdn.com/v200014_1.jpg",
