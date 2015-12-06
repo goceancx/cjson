@@ -19,10 +19,6 @@ class JSON {
 		void* vals[LESS];		
 
 
-
-		void printJsonArray(JSON **pJsonAry){
-
-		}
 		void print(int dep){
 
 			bool first=true;

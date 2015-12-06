@@ -8,7 +8,27 @@
     },
     {
       "id": "v200014",
-      "miojiTag": "推荐",
+      "miojiTag": {
+        "id": "v200014",
+        "miojiTag": [
+          {
+            "id": "v200014",
+            "miojiTag": "推荐",
+            "rec": "Hello PHP"
+          },
+          {
+            "id": "v200014",
+            "miojiTag": "推荐",
+            "rec": "Hello PHP"
+          },
+          {
+            "id": "v200014",
+            "miojiTag": "推荐",
+            "rec": "Hello PHP"
+          }
+        ],
+        "rec": "Hello PHP"
+      },
       "rec": "Hello PHP"
     },
     {
