@@ -49,9 +49,7 @@ void* parseJsonArray(char* jsonarray,char** addr){
 		char c = *pjarray;
 		switch(c){
 		  case '{':{
-		  	
 		  	tmpJsonArray[index++]=(JSON*)parseJson(pjarray,&pjarray);
-		  	*addr=pjarray;
 		  }
 		  	break;
 		  case ']':{

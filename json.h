@@ -18,9 +18,6 @@ class JSON {
 		char* keys[LESS];
 		void* vals[LESS];		
 
-		void printJsonArray(JSON **pJsonAry){
-
-		}
 		void print(int dep){
 
 			bool first=true;
@@ -41,7 +38,6 @@ class JSON {
 					case T_JSON_ARRAY:{
 						JSON** pAry = (JSON **)vals[i];
 						
-						//printJsonArray(pAry);
 						bool first=true;
 						putchar('[');
 						while(*pAry!=NULL){
