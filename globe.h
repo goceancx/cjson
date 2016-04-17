@@ -1,9 +1,17 @@
-#define JSON_STR_LENGTH  1000
+#define JSON_STR_LENGTH  5000
 #define T_JSON 1
 #define T_JSON_ARRAY 2
 #define T_INT 3
 #define T_STR 4
 #define T_EXCEPTION 5
+#define T_BRACE_LEFT 6
+#define T_BRACE_RIGHT 7
+#define T_COLON=8;
+#define T_BRACKET_LEFT=9;
+#define T_BRACKET_RIGHT=10;
+#define T_COMMA =11;
+#define T_D_QUOTES=12;
+
 #define LESS 150
 #define MORE 200
 
@@ -30,14 +38,12 @@ bool is_white(char c){
 char* skip_white(char *s ){
 	char*p = s;
 	while(p!=NULL){
-
 		char c= *p;
 		if(is_white(c)){
 			p++;
 		}else{
 			break;
 		}
-
 	}
 	return p;
 }
